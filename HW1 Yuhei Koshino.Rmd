@@ -1,0 +1,370 @@
+---
+title: "Untitled"
+author: "Yuhei"
+date: "10/14/2018"
+output: html_document
+---
+```{r}
+# **section 4.1.1 Exercises2-(a)**
+Fibonaccin <-numeric(30)
+Fibonaccin[1]<- Fibonaccin[2] <- 1
+for (i in 3:30)
+{Fibonaccin[i] <-Fibonaccin[i-2] + Fibonaccin[i-1]}
+
+Fibonaccin_1<-numeric(30)
+Fibonaccin_1[2]<-Fibonaccin_1[3]<-1
+for (i in 4:30)
+{Fibonaccin_1[i] <- Fibonaccin_1[i-1] + Fibonaccin_1[i-2] }
+
+print(Fibonaccin)
+
+print(Fibonaccin_1)
+
+
+Fibonacci_divide <-Fibonaccin/Fibonaccin_1
+print(Fibonacci_divide)
+
+# Answer: it is converging.
+
+```
+```{r}
+# **section 4.1.1 Exercises2-(b)**
+golden <-(1+sqrt(5))/2
+print(golden)
+
+# Yes, it seems like that the sequence is converging to the golden ratio. 
+
+#~Proof~
+#by the definition fo Fibonacci series, F_n=F_(n-1)+F_(n-2)
+#then $F_n/F_(n-1)=1 +F_(n-2)/F_(n-1)$
+# When the sequence is going to large, it converges to a constant number,x. then we can let x=1+1/x. 
+#By solving this equation, x= (1+sqrt(5))/2
+
+```
+```{r}
+# **section 4.1.1 Exercises3-(a)**
+
+answer <- 0 
+for(j in 1:5) {answer <-answer+j}
+print(answer)
+```
+```{r}
+#section 4.1.1 Exercises3-(b)
+answer1 <-NULL
+for (j in 1:5) answer1 <- c(answer1, j)
+print(answer1)
+
+```
+```{r}
+#section 4.1.1 Exercises3-(c)
+answer2 <- 0 
+for (j in 1:5) answer2 <- c(answer2,j)
+print(answer2)
+```
+```{r}
+#section 4.1.1 Exercises3-(d)
+answer3 <- 1 
+for (j in 1:5) answer3 <- answer3*j
+print(answer3)
+```
+
+```{r}
+#section 4.1.1 Exercises3-(e)
+answer4 <- 3
+for (j in 1:15) answer4 <-c(answer4, (7*answer4[j]) %% 31)
+print(answer4)
+#Answer:No.
+```
+
+```{r}
+#section 4.1.2 Exercises4
+i_return <- function(P,n) { 
+  if (n<=3) {i <- 0.04}
+  else {i<- 0.05}
+v <- P* ( (1 + i) ^ n -1)
+return(v)
+}
+
+i_return(10,2)
+
+
+```
+
+```{r}
+#section 4.1.2 Exercises5 
+Mortgage <- function(p, n, open){
+  if (open==TRUE){i<- 0.005} 
+  else {i<- 0.004}
+R <- (p * i) / (1 - (1 + i) ^ (-n))
+ return(R)
+}
+
+print(Mortgage(1000,10,TRUE))
+
+```
+
+```{r}
+#section 4.1.3 Exercise2 
+Fibonacci <- c()
+Fibonacci[1]<- 1
+Fibonacci[2]<- 1
+Fibonacci[3]<- Fibonacci[1]+Fibonacci[2]
+while (Fibonacci[length(Fibonacci)]<300){
+  Fibonacci[length(Fibonacci)+1]=Fibonacci[length(Fibonacci)]+Fibonacci[length(Fibonacci)-1]}
+Fibonacci<-Fibonacci[1:(length(Fibonacci)-1)]
+Fibonacci
+
+```
+
+```{r}
+#section 4.1.3 Exercise4
+i_1 <- 0.006
+i_2 <- ((1-(1+i_1)^(-20))/19)
+while (abs(i_1-i_2) >=0.000001){
+  iteration <- ((1-(1+i_2)^(-20))/19)
+i_1 <- i_2
+i_2 <- iteration
+}
+i_2
+
+
+i_1 <- 0.5
+i_2 <- ((1-(1+i_1)^(-20))/19)
+while (abs(i_1-i_2) >=0.000001){
+  iteration <- ((1-(1+i_2)^(-20))/19)
+i_1 <- i_2
+i_2 <- iteration
+}
+i_2
+
+
+
+i_1 <- 2
+i_2 <- ((1-(1+i_1)^(-20))/19)
+while (abs(i_1-i_2) >=0.000001){
+  iteration <- ((1-(1+i_2)^(-20))/19)
+i_1 <- i_2
+i_2 <- iteration
+}
+i_2
+
+# it become almost the same. 
+```
+
+```{r}
+#section 4.1.3 Exercise5
+i_1 <- 0.006
+i_2 <- ((1-(1+i_1)^(-20))/19)
+t<- 1
+while (abs(i_1-i_2) >=0.000001){
+  iteration <- ((1-(1+i_2)^(-20))/19)
+i_1 <- i_2
+i_2 <- iteration
+t<- t+1
+}
+i_2
+t
+
+i_1 <- 0.5
+i_2 <- ((1-(1+i_1)^(-20))/19)
+t<- 1
+while (abs(i_1-i_2) >=0.000001){
+  iteration <- ((1-(1+i_2)^(-20))/19)
+i_1 <- i_2
+i_2 <- iteration
+t<- t+1
+}
+i_2
+t
+
+
+i_1 <- 2
+i_2 <- ((1-(1+i_1)^(-20))/19)
+t<- 1
+while (abs(i_1-i_2) >=0.000001){
+  iteration <- ((1-(1+i_2)^(-20))/19)
+i_1 <- i_2
+i_2 <- iteration
+t<- t+1
+}
+i_2
+t
+```
+```{r}
+#section 4.1.5 Exercise2(a)
+Eratosthenes <- function(n) {
+# Print prime numbers up to n (based on the sieve of Eratosthenes) 
+  if (n >= 2) {
+sieve <- seq(2, n)
+primes <- c()
+while (length(sieve) > 0) {
+p <- sieve[1]
+primes <- c(primes, p)
+sieve <- sieve[(sieve %% p) != 0]
+}
+return(primes)
+} else {
+stop("Input value of n should be at least 2.")
+}
+}
+Eratosthenes(50)
+```
+```{r}
+#section 4.1.5 Exercise2(b)
+Eratosthenes <- function(n) {
+# Print prime numbers up to n (based on the sieve of Eratosthenes) 
+  if (n >= 2) {
+sieve <- seq(2, n)
+primes <- c()
+while (length(sieve) > 0) {
+p <- sieve[1]
+if(p >=sqrt(n)){
+  return(sieve)
+}
+primes <- c(primes, p)
+sieve <- sieve[(sieve %% p) != 0]
+}
+return(primes)
+} else {
+stop("Input value of n should be at least 2.")
+}
+}
+Eratosthenes(50)
+```
+
+```{r}
+#section 4.1.5 Exercise2(c)
+Eratosthenes <- function(n) {
+# Print prime numbers up to n (based on the sieve of Eratosthenes) 
+  if (n >= 2) {
+sieve <- seq(2, n)
+primes <- c()
+while (length(sieve) > 0) {
+p <- sieve[1]
+if(p >=sqrt(n)){
+  break
+}
+primes <- c(primes, p)
+sieve <- sieve[(sieve %% p) != 0]
+}
+return(primes)
+} else {
+stop("Input value of n should be at least 2.")
+}
+}
+Eratosthenes(50)
+```
+
+
+
+```{r}
+#section 4.2.1 Exercise2 
+compound.interest <- function( p , i , n ) {
+  #print(p * (1+i) ^ (n))
+  x <- p * (1+i) ^ (n)
+  return(x)
+  #return( p * (1+i) ^ (n))
+}
+
+comp_int <- compound.interest( 1000 ,0.01,30) 
+comp_int
+
+##Mr.Ng gets $1347.849 at the 30 monthes later.
+```
+
+```{r}
+#section 4.2.1 Exercise 3 
+# I do not know about the bisection method.So, I was not able to write down the algorithm. 
+```
+
+
+
+```{r}
+# section 4.4.1 Exercise 1
+mergesort <- function (x, deacreasing=FALSE) {
+len <-length(x)
+if (len < 2) result <- x
+ else {
+y <- x[1:(len / 2)]
+z <- x[(len / 2 + 1):len]
+y <- mergesort(y)
+z <- mergesort(z)
+result <- c()
+while (min(length(y), length(z)) > 0) {
+if (y[1] < z[1] && deacreasing ==FALSE) {
+result <- c(result, y[1])
+y <- y[-1]
+} else {
+result <- c(result, z[1] && decreasing == TRUE)
+z <- z[-1]
+}
+}
+if (length(y) > 0)
+result <- c(result, y)
+else
+result <- c(result, z)
+}
+return(result)
+}
+
+
+```
+
+```{r}
+# section 4.4.1 Exercise 2
+
+##I am not sure how to do it.
+
+```
+
+
+
+```{r}
+# Ch4, exercises 1
+coef <-c()
+directpoly <- function(x,coef){
+  n <-length(coef)
+  c <- 0
+  for (i in 1:n){
+    c <- c+coef[i]*x^(i-1)
+  }
+  return(c)
+}
+directpoly(2,c(2,4,6,7)) # f(x)=2+4*x+6*x^2+7*x^3
+
+```
+```{r}
+# Ch4, exercises 2
+hornerpoly <-function(x,coef){
+ n <-length(coef)
+ b<-coef[1]
+ if(1==1){
+   return(b)
+ }else{
+   for (i in (1-1):1){b=b*x+coef[i]
+   }
+ }
+ return(a)
+}
+
+hornerpoly(2,c(2,4,6,7))
+
+
+```
+```{r}
+system.time(directpoly(x=seq(-10, 10, length=5000000),c(1, -2, 2, 3, 4, 6, 7)))
+system.time(hornerpoly (x=seq(-10, 10, length=5000000),c(1, -2, 2, 3, 4, 6, 7)))
+
+## Horner Rule is much faster than the direc polynominal
+```
+
+```{r}
+system.time(directpoly(x=seq(-10, 10, length=5000000),c(2,17,-3)))
+system.time(hornerpoly (x=seq(-10, 10, length=5000000),c(2,17,-3)))
+
+# Still Corner's rule is faster.
+```
+
+
+
+
